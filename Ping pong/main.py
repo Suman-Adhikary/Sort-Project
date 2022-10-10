@@ -7,27 +7,36 @@ import time
 
 window = Tk()
 window.title("USER DETAILS")
-window.minsize(width=500, height=300)
-window.config(padx=80, pady=80)
-l_player = Label(text='Left player : ')
-l_player.grid(row=1, column=0)
-r_player = Label(text='Right player : ')
-r_player.grid(row=2, column=0)
-l_entry = Entry(width=30)
-l_entry.grid(row=1, column=1)
-r_entry = Entry(width=30)
-r_entry.grid(row=2, column=1)  
+
+canvas = Canvas(width=790, height=580)
+Img = PhotoImage(file='pong.gif')
+canvas.create_image(400, 300, image = Img)
+canvas.pack()
+
+game_name = Label(text='PING PONG', font = ('courier', 40, 'bold'))
+game_name.place(x=250, y=5)
+
+l_player = Label(text=' PLAYER 1 ', fg='white', bg='black', borderwidth=0)
+l_player.place(x = 20, y = 430) 
+r_player = Label(text=' PLAYER 2 ', fg='white', bg='black', borderwidth=0)
+r_player.place(x = 20, y = 500)
+l_entry = Entry(width=30, bg='#002E94', fg='white', borderwidth=0)
+l_entry.place(x=100, y = 430)
+r_entry = Entry(width=30, bg='#002E94', fg='white', borderwidth=0)
+r_entry.place(x = 100, y = 500)
+
+button = Button(text='Enter')
+button.place(x=600, y=460)  
+
 def Start_Game():
     
     Score = ScoreBoard(l_entry.get(), r_entry.get())
 
     screen = Screen()
     screen.bgcolor("#9932CC")
-    # screen.bgpic("giphy.gif")
     screen.setup(width = 800, height = 600)
     screen.title('PING PONG')
     screen.tracer(0)
-    # screen.tracer(8)
 
     l_paddle = Paddle((-380, 0))
     r_paddle = Paddle((380, 0))
@@ -65,5 +74,5 @@ def Start_Game():
     screen.exitonclick()
 
 button = Button(text='Enter', command=Start_Game)
-button.grid(column=1, row=3)
+button.place(x=600, y=460)
 window.mainloop()
