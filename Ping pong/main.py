@@ -23,10 +23,7 @@ r_player.place(x = 20, y = 500)
 l_entry = Entry(width=20, bg='#002E94', fg='white', borderwidth=0, font=('cascadia code', 12, 'normal'))
 l_entry.place(x=120, y = 430)
 r_entry = Entry(width=20, bg='#002E94', fg='white', borderwidth=0, font=('cascadia code', 12, 'normal'))
-r_entry.place(x = 120, y = 500)
-
-button = Button(text='Enter')
-button.place(x=600, y=460)  
+r_entry.place(x = 120, y = 500)  
 
 def Start_Game():
     
