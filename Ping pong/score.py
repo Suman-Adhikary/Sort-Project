@@ -1,11 +1,11 @@
-from turtle import Turtle
+from turtle import Turtle, color
 
 class ScoreBoard(Turtle):
     def __init__(self, left_name, right_name):
         super().__init__()
         self.left = left_name 
         self.right = right_name 
-        self.color('white')
+        self.color('#ff6700')
         self.penup()
         self.hideturtle()
         self.l_score = 0
@@ -31,4 +31,4 @@ class ScoreBoard(Turtle):
         self.clear()
         self.update_score()
         self.goto(0,0)
-        self.write(arg = "GAME OVER", align = "center", font = ("courier", 40, "normal"))
+        self.write(arg = "GAME OVER", align = "center", font = ("courier", 40, "bold"))
