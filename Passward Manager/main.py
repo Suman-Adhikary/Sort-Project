@@ -25,20 +25,53 @@ def Generate():
 ##################################  Save Details   ###################################
 
 def save_details():
-    Dict = {}
     website = Website_entry.get()
     Email = Email_entry.get()
     Password = Password_entry.get()
-    Dict[website] = {}
-    Dict[website]["Email"] = Email
-    Dict[website]["Password"] = Password
+    Dict = {
+        website:{
+            "Email" : Email,
+            "Password" : Password,
+        }
+    }
     if(len(website) == 0 or len(Email) == 0 or len(Password) == 0):
         messagebox.showinfo(title="Check Detals", message="Please filled all the details.")
     else:    
         Confirmation = messagebox.askokcancel(title=website, message=f"Your enter details : \nEmail : {Email} \n Password : {Password} \n Are you want tosave?")
         if Confirmation:
-            with open('information.txt', 'a') as object:
-                object.write(f"{str(Dict)}\n\n")
+            try:
+                with open('information.json', 'r') as object:
+                    data = json.load(object)
+            except FileNotFoundError:
+                with open('Information.json', 'w') as object:
+                    json.dump(Dict, object, indent=4)
+            else:
+                data.update(Dict)
+                with open('Information.json', 'w') as object:
+                    json.dump(data, object, indent=4)
+            finally:
+                Website_entry.delete(0, END)
+                Password_entry.delete(0, END) 
+                Email_entry.delete(0, END) 
+                Website_entry.focus() 
+
+################################   Password Search    #################################
+
+def pass_search():
+    website = Website_entry.get()
+    try:
+        with open('Information.json', 'r') as object:
+            data = json.load(object)   
+    except FileNotFoundError:
+        messagebox.showinfo(title='Error', message=f"No data found.")
+    else:
+        if website in data:
+            mail = data[website]['Email']
+            Pass = data[website]['Password']
+            messagebox.showinfo(title=website, message=f"Email : {mail}\n Password : {Pass}") 
+        else:
+            messagebox.showinfo(title='No record', message=f"This {website} record not found.")       
+
 
 ##################################      UI      #######################################
 
@@ -53,7 +86,7 @@ canvas.grid(row=0, column=1)
 
 Website_label = Label(text='Website ', fg='white', bg='black', font=('jetbrains mono', 12, 'bold'))
 Website_label.place(x=50, y = 190)
-Website_entry = Entry(width=35)
+Website_entry = Entry(width=24)
 Website_entry.place(x = 140, y = 190)
 Website_entry.focus()
 
@@ -72,6 +105,7 @@ password_generate_botton = Button(text='Generate', relief=RAISED, command=Genera
 password_generate_botton.place(x=298, y=250)
 Add_button = Button(text="Add", width=42, relief=RAISED, command=save_details)
 Add_button.place(x=52, y=280)
-
+Search_button = Button(text='Search', width=6, relief=RAISED, command=pass_search)
+Search_button.place(x=302, y=190)
 
 window.mainloop()
