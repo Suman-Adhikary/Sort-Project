@@ -1,4 +1,4 @@
-from turtle import Turtle, color
+from turtle import Turtle
 
 class ScoreBoard(Turtle):
     def __init__(self, left_name, right_name):
@@ -15,9 +15,9 @@ class ScoreBoard(Turtle):
     def update_score(self):
         self.clear()
         self.goto(-270, 270)
-        self.write(arg = (f"{self.left}:{self.l_score}"), align = "center", font = ("courier", 20, "normal"))    
+        self.write(arg = (f"{self.left}:{self.l_score}"), align = "center", font = ("courier", 14, "normal"))    
         self.goto(270, 270)
-        self.write(arg = (f"{self.right}:{self.r_score}"), align = "center", font = ("courier", 20, "normal"))  
+        self.write(arg = (f"{self.right}:{self.r_score}"), align = "center", font = ("courier", 14, "normal"))  
 
     def l_point(self):
         self.l_score += 1
@@ -32,3 +32,12 @@ class ScoreBoard(Turtle):
         self.update_score()
         self.goto(0,0)
         self.write(arg = "GAME OVER", align = "center", font = ("courier", 40, "bold"))
+        if self.l_score > self.r_score:
+            self.goto(0, 50)
+            self.write(arg=f"{self.left} Wins !!", align="center", font=('jetbrains mono', 30, 'normal'))
+        if self.l_score < self.r_score:   
+            self.goto(0, 50)
+            self.write(arg=f"{self.right} Wins !!", align="center", font=('jetbrains mono', 30, 'normal')) 
+        else:
+            self.goto(0, 50)  
+            self.write(arg="Draw", align="center", font=('jetbrains mono', 30, 'normal'))  
