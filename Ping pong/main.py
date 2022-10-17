@@ -25,7 +25,7 @@ w1.place(x=10, y=50)
 window.after(0, update, 0)
 
 game_name = Label(text='🎳 PING PONG 🎳', font = ('courier', 40, 'bold'), fg='green')
-game_name.place(x=500, y=5)
+game_name.place(x=490, y=5)
 
 l_player = Label(text=' PLAYER 1 ', fg='white', bg='black', font=('cascadia code', 12, 'normal'))
 l_player.place(x = 550, y = 150) 
